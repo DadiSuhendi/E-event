@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_pemateri');
             $table->string('gelar_pemateri');
             $table->text('deskripsi_pemateri');
-            $table->string('gambar_pemateri');
+            $table->string('gambar_pemateri')->nullable()->default('foto_pemateri/default.jpg');
             $table->timestamps();
         });
     }

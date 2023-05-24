@@ -38,4 +38,5 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => '/administrator/e
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/daftar', [PendaftaranController::class, 'daftar'])->name('daftar');
+Route::post('/daftar-hadir', [PendaftaranController::class, 'daftarHadir'])->name('daftarHadir');
 Route::get('/detail', [DetailController::class, 'index']);

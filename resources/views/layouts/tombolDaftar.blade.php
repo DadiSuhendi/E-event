@@ -16,7 +16,7 @@
               <form class="flex flex-col" action="{{ route('daftar') }}" method="POST">
                   @csrf   
                   <div class="mb-4">
-                      <label for="name" class="sr-only">Search</label>
+                      <label for="name" class="sr-only">Nama</label>
                       <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2.5" placeholder="Nama" required>
                   </div>
                   <div class="mb-4">

@@ -13,24 +13,17 @@
             </div>
             <!-- Modal body -->
             <div class="px-6 pb-6 space-y-6">
-              <form class="flex flex-col" action="{{ route('daftar') }}" method="POST">
-                  @csrf   
-                  <div class="mb-4">
-                      <label for="name" class="sr-only">Search</label>
-                      <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2.5" placeholder="Nama" required>
-                  </div>
+              <form class="flex flex-col" action="{{ route('daftarHadir') }}" method="POST">
+                @csrf
                   <div class="mb-4">
                       <label for="email" class="sr-only">Email</label>
                       <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2.5" placeholder="Email" required>
-                  </div>
-                  <div>
-                      <label for="no_wa" class="sr-only">No. WhatsApp</label>
-                      <input type="number" name="no_wa" id="no_wa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2.5" placeholder="No. WhatsApp" required>
+                      <small>Masukkan email yang sudah terdaftar</small>
                   </div>
             </div>
             <!-- Modal footer -->
             <div class="flex items-center px-6 pb-6 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
-                <button type="submit" class="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-1/2">Daftar</button>
+                <button type="submit" class="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-1/2">Isi Kehadiran</button>
                 <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 w-1/2">Batal</button>
             </div>  
             </form>

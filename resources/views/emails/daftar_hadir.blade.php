@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Konfirmasi Pendaftaran</title>
+    <title>Daftar Hadir</title>
 </head>
 <body>
     <h2>Selamat Datang!</h2>
-    <p>Terima kasih telah mendaftar. Berikut adalah detail pendaftaran Anda:</p>
+    <p>Terima kasih telah hadir di acara kali ini!!. Berikut adalah detail profil Anda:</p>
     
     <ul>
         <li><strong>Nama:</strong> {{ $userData['name'] }}</li>
@@ -14,8 +14,7 @@
         <li><strong>No WhatsApp:</strong> {{ $userData['no_wa'] }}</li>
     </ul>
 
-    <p>Silahkan mengisi daftar hadir setelah acara dimulai dengan klik tombol di bawah ini:</p>
-    <a href="{{ env('APP_URL') }}">Isi daftar hadir</a>
+    <p><strong>Setelah acara selesai, silahkan cek email anda untuk klaim sertifikat.</strong></p>
 
     <p>Terima kasih atas perhatian Anda. Semoga harimu menyenangkan!</p>
 </body>

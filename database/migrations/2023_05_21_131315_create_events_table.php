@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('judul');
             $table->string('slug');
-            $table->string('gambar')->nullable();
+            $table->string('gambar')->nullable()->default('foto_event/default.jpg');
             $table->text('deskripsi');
             $table->string('tanggal');
             $table->string('tanggal_selesai')->nullable();

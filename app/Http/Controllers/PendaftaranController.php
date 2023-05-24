@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\RegistrationConfirmation;
+use App\Mail\DaftarHadir;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationConfirmation;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,5 +37,29 @@ class PendaftaranController extends Controller
             ]);
             return redirect()->route('home');
         }
+    }
+
+    public function daftarHadir(Request $request)
+    {
+        $credential = $request->validate([
+            'email' => 'required'
+        ]);
+        $cekEmail = User::where('email', $request->email)->first();
+
+        if(!$cekEmail || $cekEmail->level_id == 2) {
+            Alert::error('<p style="font-size:16px; font-weight:bold">Email tidak terdaftar.<p>');
+            return redirect()->route('home');
+        }
+        
+        if($cekEmail->status_id == 2) {
+            Alert::error('<p style="font-size:16px; font-weight:bold">Email ini sudah mengisi daftar hadir.<p>');
+            return redirect()->route('home');
+        }
+
+        $cekEmail->status_id = 2;
+        $cekEmail->save();
+        Mail::to($request->email)->send(new DaftarHadir($cekEmail));
+        Alert::success('<p style="font-size:16px; font-weight:bold">Isi daftar hadir berhasil.<br>Silahkan cek Email Anda.<p>');
+        return redirect()->route('home');
     }
 }
