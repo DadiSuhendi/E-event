@@ -15,11 +15,12 @@
                     <thead>
                         <tr>
                             <th width="20">No</th>
-                            <th>Tipe</th>
+                            <th width="100">Tipe</th>
                             <th>Judul</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th width="200">Aksi</th>
+                            <th width="100">Tanggal</th>
+                            <th width="30">Jam</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +34,11 @@
                             <td>{{ $event->judul }}</td>
                             <td>{{ $event->tanggal }}</td>
                             <td>{{ $event->jam }}</td>
+                            <td>Belum Selesai</td>
                             <td>
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-check"></i>
+                                </button>
                                 <form action="{{ route('updateStatus', $event->id) }}" method="post" class="d-inline">
                                     @method('put')
                                     @csrf
@@ -47,11 +52,15 @@
                                     </button>
                                     @endif
                                 </form>
-                                <a href="{{ route('data-event.edit', $event->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('data-event.edit', $event->id) }}" class="btn btn-info">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                                 <form id="formDelete" action="{{ route('data-event.destroy', $event->id) }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">Delete</button>
+                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

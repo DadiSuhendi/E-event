@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\KeuntunganController;
 use App\Http\Controllers\admin\PemateriController;
+use App\Http\Controllers\admin\PenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => '/administrator/e
     Route::resource('keuntungan', KeuntunganController::class);
     Route::resource('data-event', EventController::class);
     Route::put('data-event/update-status/{id}', [EventController::class, 'updateStatus'])->name('updateStatus');
+    Route::resource('pengguna', PenggunaController::class);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

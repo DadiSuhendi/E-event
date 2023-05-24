@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -13,14 +14,14 @@ class StatusesSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('statuses')->insert([
-            'nama_status' => 'terdaftar'
+        Status::insert([
+            'status' => 'terdaftar'
         ]);
-        DB::table('statuses')->insert([
-            'nama_status' => 'mengikuti workshop / hadir'
+        Status::insert([
+            'status' => 'hadir'
         ]);
-        DB::table('statuses')->insert([
-            'nama_status' => 'sudah claim sertifikat'
+        Status::insert([
+            'status' => 'sudah klaim sertifikat'
         ]);
     }
 }

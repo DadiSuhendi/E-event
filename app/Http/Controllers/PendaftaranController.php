@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\DaftarHadir;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\Status;
+use App\Mail\DaftarHadir;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationConfirmation;
@@ -18,7 +21,7 @@ class PendaftaranController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'no_wa' => 'required|min:11|max:13',
         ]);
 
@@ -26,25 +29,37 @@ class PendaftaranController extends Controller
             Alert::error('<p style="font-size:16px; font-weight:bold">Pendaftaran gagal.<br>Silahkan coba lagi.<p>');        
             return back();
         } else {
-            Mail::to($request->email)->send(new RegistrationConfirmation($request->except('_token')));
-            Alert::success('<p style="font-size:16px; font-weight:bold">Pendaftaran berhasil.<br>Silahkan cek Email Anda.<p>');        
-            $insert = User::insert([
+            $event = Event::where('status', 'aktif')->first();
+
+            $user = User::where('email', $request->email)->where('event_id', $event->id)->first();
+            
+            if($user) {
+                Alert::error('<p style="font-size:16px; font-weight:bold">Email sudah terdaftar.<p>');
+                return redirect()->route('home');        
+            }
+
+            User::insert([
                 'name' => $request->name,
                 'email' => $request->email,
                 'no_wa' => $request->no_wa,
                 'status_id' => 1,
+                'event_id' => $event->id,
                 'level_id' => 1
             ]);
+            Mail::to($request->email)->send(new RegistrationConfirmation($request->except('_token')));
+            Alert::success('<p style="font-size:16px; font-weight:bold">Pendaftaran berhasil.<br>Silahkan cek Email Anda.<p>');      
             return redirect()->route('home');
         }
     }
 
     public function daftarHadir(Request $request)
     {
-        $credential = $request->validate([
+        $request->validate([
             'email' => 'required'
         ]);
-        $cekEmail = User::where('email', $request->email)->first();
+        $event = Event::where('status', 'aktif')->first();
+
+        $cekEmail = User::where('email', $request->email)->where('event_id', $event->id)->first();
 
         if(!$cekEmail || $cekEmail->level_id == 2) {
             Alert::error('<p style="font-size:16px; font-weight:bold">Email tidak terdaftar.<p>');

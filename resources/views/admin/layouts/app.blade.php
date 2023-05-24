@@ -81,6 +81,12 @@
                     <span>Data Event</span>
                 </a>
             </li>
+            <li class="nav-item {{ $title == 'Data Pengguna' ? 'active' : '' }}">
+                <a class="nav-link collapsed" href="{{ route('pengguna.index') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Data Pengguna</span>
+                </a>
+            </li>
         </ul>
         <!-- End of Sidebar -->
 
@@ -107,9 +113,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <i class="fa fa-user"></i>&nbsp;
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
