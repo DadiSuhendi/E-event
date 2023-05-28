@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('jam');
             $table->string('harga');
             $table->string('status')->default('nonaktif');
+            $table->enum('status_event', ['selesai', 'belum_selesai'])->default('belum_selesai')->nullable();
             $table->timestamps();
         });
     }

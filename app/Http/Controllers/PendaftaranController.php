@@ -32,12 +32,11 @@ class PendaftaranController extends Controller
             $event = Event::where('status', 'aktif')->first();
 
             $user = User::where('email', $request->email)->where('event_id', $event->id)->first();
-            
-            if($user) {
+            if(isset($user->email)) {
                 Alert::error('<p style="font-size:16px; font-weight:bold">Email sudah terdaftar.<p>');
                 return redirect()->route('home');        
             }
-
+            
             User::insert([
                 'name' => $request->name,
                 'email' => $request->email,

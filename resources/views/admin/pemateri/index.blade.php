@@ -30,11 +30,15 @@
                             <td>{{ $pemateri->nama_pemateri }}</td>
                             <td>{{ $pemateri->gelar_pemateri }}</td>
                             <td>
-                                <a href="{{ route('pemateri.edit', $pemateri->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('pemateri.edit', $pemateri->id) }}" class="btn btn-info">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                                 <form id="formDelete" action="{{ route('pemateri.destroy', $pemateri->id) }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">Delete</button>
+                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

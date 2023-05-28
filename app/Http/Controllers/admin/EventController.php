@@ -9,10 +9,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Mail\ClaimSertification;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -23,7 +26,7 @@ class EventController extends Controller
     {
         return view('admin.event.index', [
             'title' => 'Data Event',
-            'events' => Event::get()
+            'events' => Event::where('status_event', 'belum_selesai')->get()
         ]);
     }
 
@@ -134,7 +137,7 @@ class EventController extends Controller
         $event->jam = $request->jam;
         $event->harga = $request->harga;
         if($request->file('gambar')) {
-            if($request->oldImage) {
+            if($request->oldImage && $request->oldImage != 'default.jpg') {
                 File::delete('uploads/' . $request->file('gambar'));
             }
             $uploadImage = Storage::disk('upload_images')->put('foto_event', $request->file('gambar'));   
@@ -182,6 +185,32 @@ class EventController extends Controller
         }
             Alert::toast('<p style="font-size:16px; font-weight:bold">Data Event Berhasil Ditampilkan.<p>', 'success')->autoClose(2000)->timerProgressBar();
             return redirect()->route('data-event.index');
+    }
 
+    public function selesaiEvent(String $id) 
+    {
+        $event = Event::find($id);
+        $users = User::where('event_id', $id)->get();
+        // $user = [];
+
+        foreach($users as $user) {
+            if($user->status_id == 2) {
+                Mail::to($user->email)->send(new ClaimSertification($user));
+                $user->status_id = 3;
+                $user->save();
+            }
+        }
+
+        if($event->status_event == 'belum_selesai') {
+            $event->status_event = 'selesai';
+        }
+
+        $event->save();
+        if(!$event) {
+            Alert::toast('<p style="font-size:16px; font-weight:bold">Salah Satu Event Gagal Diselesaikan.<br>Silahkan Coba Lagi.<p>', 'error')->autoClose(2000)->timerProgressBar();
+            return redirect()->route('data-event.index');
+        }
+        Alert::toast('<p style="font-size:16px; font-weight:bold">Salah Satu Event Telah Selesai!.<p>', 'success')->autoClose(2000)->timerProgressBar();
+        return redirect()->route('data-event.index');
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\KeuntunganController;
 use App\Http\Controllers\admin\PemateriController;
 use App\Http\Controllers\admin\PenggunaController;
+use App\Http\Controllers\RiwayatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,10 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => '/administrator/e
     Route::resource('keuntungan', KeuntunganController::class);
     Route::resource('data-event', EventController::class);
     Route::put('data-event/update-status/{id}', [EventController::class, 'updateStatus'])->name('updateStatus');
+    Route::put('data-event/selesai-event/{id}', [EventController::class, 'selesaiEvent'])->name('selesaiEvent');
     Route::resource('pengguna', PenggunaController::class);
+    Route::get('/riwayat-event', [RiwayatController::class, 'index'])->name('riwayat');
+    Route::delete('/riwayat-event/{id}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

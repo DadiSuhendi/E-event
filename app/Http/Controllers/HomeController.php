@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $event = Event::where('status', 'aktif')->first();
+        $event = Event::where('status', 'aktif')->where('status_event', 'belum_selesai')->first();
         if(!$event) {
             return view('errors.EventNotFound');
         }

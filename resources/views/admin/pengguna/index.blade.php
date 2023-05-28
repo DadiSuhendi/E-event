@@ -17,8 +17,8 @@
                             <th width="20">No</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>No. WhatsApp</th>
                             <th>Level</th>
+                            <th>Judul Event</th>
                             <th width="200">Aksi</th>
                         </tr>
                     </thead>
@@ -27,22 +27,33 @@
                             $i = 1;
                         @endphp
                         @foreach ($users as $user)
+                        @php
+                            $event = $events->where('id', $user->event_id)->first();
+                        @endphp
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->no_wa }}</td>
                             @if ($user->level_id == 2)
                                 <td>Admin</td>
                             @else
                                 <td>User</td>
                             @endif
+                            @if ($user->event_id)
+                                <td>{{ $event->judul }}</td>
+                            @else
+                                <td>-</td>
+                            @endif
                             <td>
-                                <a href="{{ route('pengguna.edit', $user->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('pengguna.edit', $user->id) }}" class="btn btn-info">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                                 <form id="formDelete" action="{{ route('pengguna.destroy', $user->id) }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">Delete</button>
+                                    <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

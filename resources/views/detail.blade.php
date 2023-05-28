@@ -24,7 +24,13 @@
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul class="font-medium flex flex-col py-4 md:p-0 mt-4 border-t-2 border-b-2 border-primary rounded-lg bg-white md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                     <li>
-                        <a href="/" class="block py-2 text-center text-primary bg-gray-900 hover:bg-gray-800 rounded md:py-2 md:px-4 md:bg-gray-900 md:text-primary" aria-current="page">Daftar Sekarang</a>
+                        <a href="/" class="block py-2 text-center text-primary bg-gray-900 hover:bg-gray-800 rounded md:py-2 md:px-4 md:bg-gray-900 md:text-primary" aria-current="page">
+                            @if ($registrationStatus == 'closed')
+                                Isi Daftar Hadir
+                            @else
+                                Daftar Sekarang
+                            @endif
+                        </a>
                     </li>
                     </ul>
                 </div>

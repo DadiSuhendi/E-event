@@ -4,10 +4,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center w-100">
             <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
-            <a href="{{ route('keuntungan.create') }}" class="btn btn-primary">
-                <i class="fa fa-fw fa-plus"></i>
-                Tambah Data
-            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -15,7 +11,10 @@
                     <thead>
                         <tr>
                             <th width="20">No</th>
-                            <th>Keuntungan / Manfaat</th>
+                            <th>Tipe Event</th>
+                            <th>Judul Event</th>
+                            <th>Total Pendaftar</th>
+                            <th>Total Kehadiran</th>
                             <th width="200">Aksi</th>
                         </tr>
                     </thead>
@@ -23,15 +22,19 @@
                         @php
                             $i = 1;
                         @endphp
-                        @foreach ($keuntungans as $keuntungan)
+                        @foreach ($events as $event)
+                        @php
+                            $totalDaftar = $users->where('event_id', $event->id)->where('status_id', '>=', 1);
+                            $totalHadir = $users->where('event_id', $event->id)->where('status_id', '>=' ,2);
+                        @endphp
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $keuntungan->keuntungan }}</td>
+                            <td>{{ $event->tipe }}</td>
+                            <td>{{ $event->judul }}</td>
+                            <td>{{ count($totalDaftar) }}</td>
+                            <td>{{ count($totalHadir) }}</td>
                             <td>
-                                <a href="{{ route('keuntungan.edit', $keuntungan->id) }}" class="btn btn-info">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <form id="formDelete" action="{{ route('keuntungan.destroy', $keuntungan->id) }}" method="post" class="d-inline">
+                                <form id="formDelete" action="{{ route('riwayat.destroy', $event->id) }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button type="button" onclick="alertDelete()" id="btnDelete" class="btn btn-danger">

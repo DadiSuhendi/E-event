@@ -65,7 +65,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{ $title == 'Data Pemateri' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="{{ route('pemateri.index') }}">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Data Pemateri</span>
                 </a>
             </li>
@@ -77,7 +77,7 @@
             </li>
             <li class="nav-item {{ $title == 'Data Event' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="{{ route('data-event.index') }}">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-calendar"></i>
                     <span>Data Event</span>
                 </a>
             </li>
@@ -85,6 +85,12 @@
                 <a class="nav-link collapsed" href="{{ route('pengguna.index') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Data Pengguna</span>
+                </a>
+            </li>
+            <li class="nav-item {{ $title == 'Riwayat Event' ? 'active' : '' }}">
+                <a class="nav-link collapsed" href="{{ route('riwayat') }}">
+                    <i class="fas fa-fw fa-history"></i>
+                    <span>Riwayat Event</span>
                 </a>
             </li>
         </ul>
@@ -126,10 +132,6 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -196,6 +198,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function konfirmasiSelesaiEvent() {
+            var formKonfirmasi = document.getElementById('formKonfirmasi')
+            Swal.fire({
+                title: 'Selesaikan event ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya, selesaikan'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    formKonfirmasi.submit()
+                }
+            });
+        }
+    </script>
 
     <script>
         function alertDelete() {
