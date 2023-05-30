@@ -36,8 +36,11 @@ class PendaftaranController extends Controller
                 Alert::error('<p style="font-size:16px; font-weight:bold">Email sudah terdaftar.<p>');
                 return redirect()->route('home');        
             }
+
+            $number = mt_rand(1000000000, 9999999999);
             
             User::insert([
+                'random_id' => $number,
                 'name' => $request->name,
                 'email' => $request->email,
                 'no_wa' => $request->no_wa,

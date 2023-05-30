@@ -13,7 +13,7 @@
         <li><strong>No WhatsApp:</strong> {{ $userData['no_wa'] }}</li>
     </ul>
     <p><strong>Silahkan Klik link dibawah ini untuk download sertifkat anda : </strong></p>
-    <a href="">Download Sertifikat</a>
+    <a href="{{ route('sertifikat', $userData['random_id']) }}">Download Sertifikat</a>
 
     <p>Terima kasih atas perhatian Anda. Semoga harimu menyenangkan!</p>
 </body>

@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\KeuntunganController;
 use App\Http\Controllers\admin\PemateriController;
 use App\Http\Controllers\admin\PenggunaController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\SertifikatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/daftar', [PendaftaranController::class, 'daftar'])->name('daftar');
 Route::post('/daftar-hadir', [PendaftaranController::class, 'daftarHadir'])->name('daftarHadir');
 Route::get('/detail', [DetailController::class, 'index']);
+
+Route::get('/sertifikat/{id}', [SertifikatController::class, 'index'])->name('sertifikat');

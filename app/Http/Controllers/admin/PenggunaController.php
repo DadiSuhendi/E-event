@@ -39,7 +39,7 @@ class PenggunaController extends Controller
         return view('admin.pengguna.tambah', [
             'title' => 'Tambah Data Pengguna',
             'levels' => Level::get(),
-            'events' => Event::get()
+            'events' => Event::where('status_event', 'belum_selesai')->get()
         ]);
     }
 
